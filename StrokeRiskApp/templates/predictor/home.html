@@ -1,0 +1,62 @@
+{% extends "predictor/layout.html" %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+{% endblock styles %}
+
+{% block content %}
+    <main class="container">
+        <section class="header">
+            <a href="{% url 'home' %}"><i class="fa fa-arrow-left"></i></a>
+            <div class="title">
+                <h2>Stroke Risk Prediction</h2>
+                <!-- <p>Input random measurements (in cm) of your iris flower for classification of its </p> -->
+            </div>
+            <a href="{% url 'home' %}"><i class="fa fa-tmes"></i></a>
+        </section>
+        <section class="classification">
+            <div id="input-section">
+                <form action="{% url 'predict' %}" method="POST">
+                    {% csrf_token %}
+                    <h3>Predict Stroke Risk</h3>
+                    <div class="input-field">
+                        <label for="age">Age</label>
+                        {{ form.age }}
+                    </div>
+                    <div class="input-field">
+                        <label for="gender">Gender</label>
+                        {{ form.gender }}
+                    </div>
+                    <div class="input-field">
+                        <label for="smoking_status">Smoking Status</label>
+                        {{ form.smoking_status }}
+                    </div>
+                    <div class="input-field">
+                        <label for="hypertension">Has Hypertension</label>
+                        {{ form.hypertension }}
+                    </div>
+                    <div class="input-field">
+                        <label for="heart_disease">Has Heart Disease</label>
+                        {{ form.heart_disease }}
+                    </div>
+                    <div class="input-field">
+                        <label for="avg_glucose_level">Average Glucose Level</label>
+                        {{ form.avg_glucose_level }}
+                    </div>
+                    <div class="input-field">
+                        <label for="bmi">BMI - Body Mass Index</label>
+                        {{ form.bmi }}
+                    </div>
+                    <button type="submit" id="submit-button">Submit</button>
+                </form>
+            </div>
+            <div class="output-section">
+                <h3>Prediction Result</h3>
+                {% if message %}
+                    <p>{{ message }}</p>
+                {% endif %}
+            </div>
+        </section>
+    </main>
+{% endblock content %}
